@@ -4,7 +4,7 @@
 
   --page-title-color: #000000;
   --base-text-color: #212121;
-  --label-color: #949494;
+  --light-text-color: #949494;
   --border-color: #E1E1E1;
   --primary-color: #397AF5;
   --light-primary-color: #EDF2FF;
@@ -12,4 +12,12 @@
   --base-border-radius: 12px;
   --small-border-radius: 12px;
   --border-style: 1px solid var(--border-color);
+
+  --row-border-radius: var(--base-border-radius);
+  --row-offset: 18px 25px 21px 32px;
+  --row-child-offset: 14px 0 16px 0;
+  --row-children-offset: 0 25px 0 32px;
+  --row-background: var(--card-background);
+  --row-label-color: var(--light-text-color);
+  --row-children-count-bg: #BECCEE;
 }

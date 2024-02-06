@@ -5,6 +5,7 @@ body {
   font-family: 'Acrom', sans-serif;
   background: var(--body-background);
   font-weight: 500;
+  min-width: 1024px;
 }
 
 .container {
@@ -12,4 +13,29 @@ body {
   padding-left: 20px;
   padding-right: 20px;
   margin: 0 auto;
+}
+
+.text-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  &::after {
+    content: "...";
+    position: absolute;
+    right: 0;
+    font-size: 14px;
+    color: #ccc;
+  }
+}
+.bold-text {
+  font-weight: 700;
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: height 0.5s;
+}
+.slide-enter,
+.slide-leave-to {
+  height: 0;
 }

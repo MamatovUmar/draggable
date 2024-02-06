@@ -1,0 +1,15 @@
+@import "normalize.css";
+@import "vars";
+
+body {
+  font-family: 'Acrom', sans-serif;
+  background: var(--body-background);
+  font-weight: 500;
+}
+
+.container {
+  max-width: 1696px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin: 0 auto;
+}

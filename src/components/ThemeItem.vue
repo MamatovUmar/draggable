@@ -85,19 +85,17 @@ const order = computed(() => {
       </div>
     </div>
 
-    <Transition name="slide">
-      <div v-if="myList.length && showChildren" class="theme-row__children">
-        <Container @drop="onDrop">
-          <Draggable v-for="item in myList" :key="item.id">
-            <ThemeItem
-              :item="item"
-              child
-              :parent-sequence="order"
-            />
-          </Draggable>
-        </Container>
-      </div>
-    </Transition>
+    <div v-if="myList.length && showChildren" class="theme-row__children">
+      <Container @drop="onDrop">
+        <Draggable v-for="item in myList" :key="item.id">
+          <ThemeItem
+            :item="item"
+            child
+            :parent-sequence="order"
+          />
+        </Draggable>
+      </Container>
+    </div>
   </section>
 </template>
 

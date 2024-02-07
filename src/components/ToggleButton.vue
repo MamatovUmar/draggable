@@ -6,7 +6,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <button type="button" :class="['toggle-button', { open: props?.isOpen }]">
+  <button type="button" :class="['toggle-button', 'base-button', { open: props?.isOpen }]">
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M4 6L8 10L12 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
@@ -15,16 +15,6 @@ const props = defineProps<{
 
 <style scoped lang="scss">
 .toggle-button {
-  border: 1px solid var(--primary-color);
-  background: var(--primary-color);
-  border-radius: var(--base-border-radius);
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  outline: none;
   svg {
     transform: rotate(0deg);
     transition: transform 0.2s ease-in-out;

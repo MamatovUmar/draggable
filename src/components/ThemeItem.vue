@@ -5,6 +5,7 @@ import { computed, ref } from 'vue'
 import ToggleButton from '@/components/ToggleButton.vue'
 import { useDrag } from '@/composable/useDrag.ts'
 import { Container, Draggable } from 'vue-dndrop'
+import ActionButton from '@/components/ActionButton.vue';
 
 const props = defineProps<{
   item: ITheme
@@ -73,11 +74,14 @@ const order = computed(() => {
         <div v-if="myList.length" class="theme-row__children-count">
           {{ myList.length }}
         </div>
+
         <ToggleButton
           v-if="myList.length"
           :is-open="showChildren"
           @click="showChildren = !showChildren"
         />
+
+        <ActionButton />
       </div>
     </div>
 
@@ -125,7 +129,6 @@ const order = computed(() => {
     border-top: var(--border-style);
     box-sizing: border-box;
     padding: var(--row-children-offset);
-    overflow: hidden;
     position: relative;
   }
   &.child &__children {

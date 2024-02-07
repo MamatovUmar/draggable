@@ -30,6 +30,22 @@ body {
 .bold-text {
   font-weight: 700;
 }
+.base-button {
+  border: 1px solid var(--primary-color);
+  background: var(--primary-color);
+  border-radius: var(--base-border-radius);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  outline: none;
+}
+
+.dndrop-container.vertical > .dndrop-draggable-wrapper {
+  overflow: visible !important;
+}
 
 .slide-enter-active,
 .slide-leave-active {

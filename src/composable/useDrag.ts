@@ -10,7 +10,11 @@ export const useDrag = (items: ITheme[]) => {
    * @param e
    */
   function onDrop(e: DropEvent) {
-    swapElements(myList.value, e.removedIndex, e.addedIndex)
+    // находим нужный объект
+    const element = myList.value.splice(e.removedIndex, 1)[0];
+
+    // перемещаем на новое место
+    myList.value.splice(e.addedIndex, 0, element)
 
     // изменяем очередность после перетаскивание
     myList.value.forEach((el, index) => {
@@ -18,22 +22,7 @@ export const useDrag = (items: ITheme[]) => {
     })
   }
 
-  /**
-   * заменяет местами элементов массива
-   * @param arr
-   * @param index1
-   * @param index2
-   */
-  function swapElements(arr: ITheme[], index1: number, index2: number) {
-    if (index1 < 0 || index1 >= arr.length || index2 < 0 || index2 >= arr.length) {
-      console.error('Invalid index')
-      return;
-    }
-    [arr[index1], arr[index2]] = [arr[index2], arr[index1]]
-  }
-
   return {
-    swapElements,
     onDrop,
     myList
   }

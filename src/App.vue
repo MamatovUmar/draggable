@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import MainTheme from '@/components/MainTheme.vue'
+import ThemeItem from '@/components/ThemeItem.vue'
 import items from '@/constants/themes'
 import { Container, Draggable } from 'vue-dndrop'
 import { useDrag } from '@/composable/useDrag.ts'
@@ -18,7 +18,7 @@ const { onDrop, myList } = useDrag(items)
 
       <Container @drop="onDrop">
         <Draggable v-for="item in myList" :key="item.id">
-          <MainTheme :key="item.id" :item="item"/>
+          <ThemeItem :key="item.id" :item="item"/>
         </Draggable>
       </Container>
     </div>

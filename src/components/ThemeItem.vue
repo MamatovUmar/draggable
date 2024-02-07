@@ -16,6 +16,7 @@ const { onDrop, myList } = useDrag(props.item?.children ?? [])
 
 const showChildren = ref(false)
 
+// получаем название подкатегории как строка
 const subCategories = computed<string>(() => {
   const childrenNames = myList.value.map(el => el.name) ?? []
   return childrenNames.join(' / ')
@@ -84,7 +85,7 @@ const order = computed(() => {
       <div v-if="myList.length && showChildren" class="theme-row__children">
         <Container @drop="onDrop">
           <Draggable v-for="item in myList" :key="item.id">
-            <MainTheme
+            <ThemeItem
               :item="item"
               child
               :parent-sequence="order"

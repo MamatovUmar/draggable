@@ -1,6 +1,11 @@
 <script setup lang="ts">
-import MainTheme from '@/components/MainTheme.vue';
+import MainTheme from '@/components/MainTheme.vue'
 import items from '@/constants/themes'
+import { Container, Draggable } from 'vue-dndrop'
+import { useDrag } from '@/composable/useDrag.ts'
+
+const { onDrop, myList } = useDrag(items)
+
 </script>
 
 <template>
@@ -11,9 +16,11 @@ import items from '@/constants/themes'
         Список тем обращения и продуктов
       </h1>
 
-      <div class="page__body">
-        <MainTheme v-for="item of items" :key="item.id" :item="item" />
-      </div>
+      <Container @drop="onDrop">
+        <Draggable v-for="item in myList" :key="item.id">
+          <MainTheme :key="item.id" :item="item"/>
+        </Draggable>
+      </Container>
     </div>
   </main>
 </template>
@@ -28,9 +35,6 @@ import items from '@/constants/themes'
     margin-top: 0;
     margin-bottom: 40px;
     padding: 0;
-  }
-  &__body {
-
   }
 }
 </style>

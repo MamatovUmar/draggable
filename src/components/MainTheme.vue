@@ -1,36 +1,38 @@
 <script setup lang="ts">
 
-import { ITheme } from '@/types/theme.ts';
-import { computed, ref } from 'vue';
-import ToggleButton from '@/components/ToggleButton.vue';
+import { ITheme } from '@/types/theme.ts'
+import { computed, ref } from 'vue'
+import ToggleButton from '@/components/ToggleButton.vue'
+import { useDrag } from '@/composable/useDrag.ts'
+import { Container, Draggable } from 'vue-dndrop'
 
-const { item, child, parentSequence } = defineProps<{
+const props = defineProps<{
   item: ITheme
   child?: boolean
   parentSequence?: string
 }>()
 
+const { onDrop, myList } = useDrag(props.item?.children ?? [])
+
 const showChildren = ref(false)
 
-const children = computed(() => item?.children ?? [])
-
 const subCategories = computed<string>(() => {
-  const childrenNames = children.value.map(el => el.name) ?? []
+  const childrenNames = myList.value.map(el => el.name) ?? []
   return childrenNames.join(' / ')
 })
 
 const gridColumns = computed(() => {
-  if (children.value.length) {
+  if (myList.value.length) {
     return '50px 1fr 1fr calc((100% - 270px) / 2) 160px'
   }
   return '50px calc((100% - 270px) / 2) calc((100% - 270px) / 2) 160px'
 })
 
 const order = computed(() => {
-  if (parentSequence) {
-    return `${parentSequence}.${item.sequence}`
+  if (props.parentSequence) {
+    return `${props.parentSequence}.${props.item.sequence}`
   }
-  return String(item.sequence)
+  return String(props.item.sequence)
 })
 
 </script>
@@ -61,17 +63,17 @@ const order = computed(() => {
         <div class="column__text">{{ item.sequence }}</div>
       </div>
 
-      <div v-if="children.length" class="theme-row__column column">
+      <div v-if="myList.length" class="theme-row__column column">
         <div class="column__label">Подкатегории</div>
         <div class="column__text text-ellipsis">{{ subCategories }}</div>
       </div>
 
       <div class="theme-row__column actions">
-        <div v-if="children.length" class="theme-row__children-count">
-          {{ children.length }}
+        <div v-if="myList.length" class="theme-row__children-count">
+          {{ myList.length }}
         </div>
         <ToggleButton
-          v-if="children.length"
+          v-if="myList.length"
           :is-open="showChildren"
           @click="showChildren = !showChildren"
         />
@@ -79,14 +81,16 @@ const order = computed(() => {
     </div>
 
     <Transition name="slide">
-      <div v-if="children.length && showChildren" class="theme-row__children">
-        <MainTheme
-          v-for="child of children"
-          :key="`child-${child.id}`"
-          :item="child"
-          child
-          :parent-sequence="order"
-        />
+      <div v-if="myList.length && showChildren" class="theme-row__children">
+        <Container @drop="onDrop">
+          <Draggable v-for="item in myList" :key="item.id">
+            <MainTheme
+              :item="item"
+              child
+              :parent-sequence="order"
+            />
+          </Draggable>
+        </Container>
       </div>
     </Transition>
   </section>
@@ -98,6 +102,7 @@ const order = computed(() => {
   border-radius: var(--row-border-radius);
   user-select: none;
   box-sizing: border-box;
+  margin-bottom: 12px;
   &:not(:last-child) {
     margin-bottom: 4px;
     border-bottom: var(--border-style);
